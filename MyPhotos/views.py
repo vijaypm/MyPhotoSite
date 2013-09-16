@@ -1,9 +1,9 @@
 from django.http import HttpResponse
 # from django.template import RequestContext, loader
 # from django.http import Http404
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 
-from MyPhotos.models import User
+from MyPhotos.models import User, UserAlbum
 
 
 def index(request):
@@ -21,13 +21,18 @@ def index(request):
     context = {'user_list':user_list}
     return render(request, 'myphotos/index.html', context)
 
-def albums(request, user_id):
+def profile(request, user_id):
     # try:
     #     user = User.objects.get(pk=user_id)
     # except User.DoesNotExist:
     #     raise Http404
     user = get_object_or_404(User, pk=user_id)
-    return render(request, 'myphotos/albums.html', {'user':user})
+    return render(request, 'myphotos/profile.html', {'user':user})
+
+def albums(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    album_list = get_list_or_404(UserAlbum, user_id=user_id)
+    return render(request, 'myphotos/albums.html', {'user':user, 'album_list':album_list})
 
 def photos(request, album_id):
     return HttpResponse("You are viewing photos in album %s" % album_id)

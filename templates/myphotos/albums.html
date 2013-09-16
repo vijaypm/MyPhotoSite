@@ -1,1 +1,6 @@
-{{ user }}
+<h1>Welcome {{ user }}</h1>
+<ul>
+    {% for album in album_list %}
+    <li><a href="{% url 'myphotos:photos' album.id %}">{{ album.name }}</a></li>
+    {% endfor %}
+</ul>
