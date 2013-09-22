@@ -111,6 +111,7 @@ import os
 TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), '..', 'templates').replace('\\','/'),)
 
 INSTALLED_APPS = (
+    'registration_defaults',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -122,6 +123,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'MyPhotos',
+    'registration',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -152,3 +154,16 @@ LOGGING = {
         },
     }
 }
+ACCOUNT_ACTIVATION_DAYS=7
+#
+# EMAIL_HOST="imap.googlemail.com"
+# EMAIL_PORT=993
+# EMAIL_USE_TLS=True
+# EMAIL_HOST_USER=vijaypm
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = 'testing@example.com'
+LOGIN_REDIRECT_URL = '/myphotos/'

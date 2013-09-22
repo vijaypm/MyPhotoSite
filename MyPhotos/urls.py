@@ -1,5 +1,5 @@
 __author__ = 'vijay'
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, url, include
 
 from MyPhotos import views
 
@@ -8,4 +8,5 @@ urlpatterns = patterns('',
     url(r'^(?P<user_id>\d+)/profile/$', views.profile, name='profile'),
     url(r'^(?P<user_id>\d+)/albums/$', views.albums, name='albums'),
     url(r'^(?P<album_id>\d+)/photos/$', views.photos, name='photos'),
+
 )
