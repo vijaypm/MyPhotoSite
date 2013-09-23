@@ -1,6 +1,20 @@
-<h1>Welcome {{ user }}</h1>
+<span style="float:right">
+<a href="{% url 'auth_logout' %}">Logout</a>
+</span>
+<h1>You are viewing album '{{ album.name }}' by <a href="{% url 'myphotos:index' %}">{{ user }}</a></h1>
+<a href="{% url 'myphotos:index' %}">&lt;&lt;Back</a>
+
+<br>
+<hr>
+<form action="/myphotos/{{ album.id }}/photos/add/" method="post" enctype="multipart/form-data">
+    <input name="imageFile" type="file" id="imageFile" />
+    <input name="tags" type="text" id="tags">
+    <input type="submit" id="submit" value="Submit File" />
+    {% csrf_token %}
+</form>
 <ul>
     {% for photo in photo_list %}
-    <li><a href="{% url photo.filename %}">{{ photo.tags }}</a></li>
+        <li><a href="/myphotos{{photo.imageFile.url}}"><img src="/myphotos{{photo.imageFile.url}}" height=100>
+            {{ photo.filename }}:{{ photo.tags }}</a> </li>
     {% endfor %}
 </ul>

@@ -1,4 +1,17 @@
+<span style="float:right">
+<a href="{% url 'auth_logout' %}">Logout</a>
+</span>
 <h1>Welcome {{ user }}</h1>
+<br>
+<hr>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'myphotos:add_album' %}" method="POST">
+    Create an album::<input type="text" name="name">
+    <input type="submit" value="Add">
+    {% csrf_token %}
+</form>
+</p>
 <ul>
     {% for album in album_list %}
     <li><a href="{% url 'myphotos:photos' album.id %}">{{ album.name }}</a></li>

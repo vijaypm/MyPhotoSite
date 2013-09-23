@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 
 # Create your models here.
 # class User(models.Model):
@@ -33,12 +34,14 @@ class UserAlbum(models.Model):
     def __unicode__(self):
         return self.name + ' by ' + self.user.username
 
+
 class AlbumPhoto(models.Model):
     album = models.ForeignKey(UserAlbum)
     filename = models.CharField(max_length=80)
     created_dt = models.DateTimeField(default=timezone.now())
     modified_dt = models.DateTimeField(null=True)
-    tags = models.TextField() # convert to JSONField later http://djangosnippets.org/snippets/377/
+    tags = models.TextField(null=True, blank=True) # convert to JSONField later http://djangosnippets.org/snippets/377/
+    imageFile = models.ImageField(upload_to='images/%Y/%m/%d')
 
     def __init__(self, *args, **kwargs):
         super(AlbumPhoto, self).__init__(*args, **kwargs)
