@@ -167,3 +167,4 @@ EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = False
 DEFAULT_FROM_EMAIL = 'testing@example.com'
 LOGIN_REDIRECT_URL = '/myphotos/'
+LOGIN_URL = '/accounts/login'

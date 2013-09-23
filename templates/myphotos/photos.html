@@ -1,0 +1,6 @@
+<h1>Welcome {{ user }}</h1>
+<ul>
+    {% for photo in photo_list %}
+    <li><a href="{% url photo.filename %}">{{ photo.tags }}</a></li>
+    {% endfor %}
+</ul>

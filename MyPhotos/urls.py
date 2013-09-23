@@ -5,8 +5,8 @@ from MyPhotos import views
 
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
-    url(r'^(?P<user_id>\d+)/profile/$', views.profile, name='profile'),
-    url(r'^(?P<user_id>\d+)/albums/$', views.albums, name='albums'),
+    url(r'^profile/$', views.profile, name='profile'),
+    url(r'^add/$', views.add_album, name='add_album'),
     url(r'^(?P<album_id>\d+)/photos/$', views.photos, name='photos'),
 
 )
