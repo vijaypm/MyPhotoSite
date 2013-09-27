@@ -158,17 +158,30 @@ LOGGING = {
         },
     }
 }
+##### django-registration
 ACCOUNT_ACTIVATION_DAYS=7
 #
 # EMAIL_HOST="imap.googlemail.com"
 # EMAIL_PORT=993
 # EMAIL_USE_TLS=True
 # EMAIL_HOST_USER=vijaypm
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_USE_TLS = False
-DEFAULT_FROM_EMAIL = 'testing@example.com'
+#EMAIL_HOST = 'localhost'
+#EMAIL_PORT = 1025
+#EMAIL_HOST_USER = ''
+#EMAIL_HOST_PASSWORD = ''
+#EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = 'vijaypm@mailinator.com'
 LOGIN_REDIRECT_URL = '/myphotos/'
 LOGIN_URL = '/accounts/login'
+
+##### django-ses
+AWS_SES_AUTO_THROTTLE = 0.5 # (default; safety factor applied to SES rate limit)
+EMAIL_BACKEND = 'django_ses.SESBackend'
+AWS_SECRET_ACCESS_KEY=os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_ACCESS_KEY_ID=os.getenv("AWS_ACCESS_KEY_ID")
+
+##### django-storages
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+#AWS_ACCESS_KEY_ID
+#AWS_SECRET_ACCESS_KEY
+AWS_STORAGE_BUCKET_NAME='myphotosite'

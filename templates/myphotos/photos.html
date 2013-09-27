@@ -14,7 +14,11 @@
 </form>
 <ul>
     {% for photo in photo_list %}
-        <li><a href="/myphotos{{photo.imageFile.url}}"><img src="/myphotos{{photo.imageFile.url}}" height=100>
-            {{ photo.filename }}:{{ photo.tags }}</a> </li>
+        <hr>
+        <li><a href="{{photo.imageFile.url}}">
+                <img src="{{photo.imageFile.url}}" height=100>
+                {{ photo.filename }}:{{ photo.tags }}
+            </a> <a href="/myphotos/{{ album.id }}/photos/{{ photo.id }}/del/" style="float: right;">Delete</a>
+        </li>
     {% endfor %}
 </ul>

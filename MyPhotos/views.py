@@ -71,3 +71,9 @@ def add_photo(request, album_id):
             instance.album_id = album_id
             instance.save()
     return HttpResponseRedirect('/myphotos/%s/photos' % album_id)
+
+@login_required()
+def del_photo(request, album_id, photo_id):
+    photo = get_object_or_404(AlbumPhoto, pk = photo_id)
+    photo.delete()
+    return HttpResponseRedirect('/myphotos/%s/photos' % album_id)
