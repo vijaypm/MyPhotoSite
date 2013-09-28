@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+import time
 
 # Create your models here.
 # class User(models.Model):
@@ -34,6 +34,8 @@ class UserAlbum(models.Model):
     def __unicode__(self):
         return self.name + ' by ' + self.user.username
 
+def uploadPath(instance, filename):
+    return 'images/%s/%s/%s'%(instance.album.id,time.strftime('%Y/%m/%d', time.gmtime()),filename)
 
 class AlbumPhoto(models.Model):
     album = models.ForeignKey(UserAlbum)
@@ -41,7 +43,7 @@ class AlbumPhoto(models.Model):
     created_dt = models.DateTimeField(default=timezone.now())
     modified_dt = models.DateTimeField(null=True)
     tags = models.TextField(null=True, blank=True) # convert to JSONField later http://djangosnippets.org/snippets/377/
-    imageFile = models.ImageField(upload_to='images/%Y/%m/%d')
+    imageFile = models.ImageField(upload_to=uploadPath)
 
     def __init__(self, *args, **kwargs):
         super(AlbumPhoto, self).__init__(*args, **kwargs)
@@ -49,3 +51,12 @@ class AlbumPhoto(models.Model):
 
     def __unicode__(self):
         return self.filename + ' in ' + self.album
+
+    def delete(self, *args, **kwargs):
+        # You have to prepare what you need before delete the model
+        storage, path = self.imageFile.storage, self.imageFile.path
+        # Delete the model before the file
+        super(AlbumPhoto, self).delete(*args, **kwargs)
+        # Delete the file after the model
+        storage.delete(path)
+

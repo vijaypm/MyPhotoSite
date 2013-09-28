@@ -66,10 +66,13 @@ def add_photo(request, album_id):
     if request.method == 'POST':
         form = PhotoUploadForm(request.POST, request.FILES)
         if form.is_valid():
-            instance = form.save(commit=False)
-            instance.filename = request.FILES['imageFile'].name
-            instance.album_id = album_id
-            instance.save()
+            try:
+                AlbumPhoto.objects.get(album_id=album_id, filename=request.FILES['imageFile'].name)
+            except AlbumPhoto.DoesNotExist:
+                instance = form.save(commit=False)
+                instance.filename = request.FILES['imageFile'].name
+                instance.album_id = album_id
+                instance.save()
     return HttpResponseRedirect('/myphotos/%s/photos' % album_id)
 
 @login_required()
